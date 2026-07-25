@@ -8,9 +8,9 @@
 		<link rel="stylesheet" href="style.css" />
 		<script src="./db/db.js"></script>
 		<script src="./scripts/template.js"></script>
-		<script src="./script.js"></script>
+		<script src="./script.js" defer></script>
 	</head>
-	<body>
+	<body onload="init()">
 		<header>
 			<a href="#">
 				<img
@@ -19,13 +19,13 @@
 					alt="Lieferando"
 				/>
 			</a>
-			<nav></nav>
+			<nav>Burger Menu Icon</nav>
 		</header>
 		<main>
 			<section class="dishes">
-				<section>Burger</section>
-				<section>Pizza</section>
-				<section>Salad</section>
+				<section id="pizza-content"></section>
+				<section id="burger-content"></section>
+				<section id="salad-content"></section>
 			</section>
 			<aside>Warenkorb</aside>
 		</main>
