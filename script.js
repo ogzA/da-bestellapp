@@ -1,10 +1,13 @@
 const pizzaContentRef = document.getElementById("pizza-content");
 const burgerContentRef = document.getElementById("burger-content");
 const saladContentRef = document.getElementById("salad-content");
+const basket = document.getElementById("basket");
 
 // [x] Dishes rendern
 // [x] Dishes nach Kategorien rendern und ausgeben lassen
-// Dishes 1x in den Warenkorb hinzufügen (Add to basket)
+// [x]  Add to Basket Button erstellen und dessen Parent consoleloggen.
+// [] Dishes 1x in den Warenkorb hinzufügen (Add to basket)
+
 // Dishes amount erhöhen (Plus Icon)
 // eventuell amount * price?
 // Dishes amount verringen (Minus Icon)
@@ -28,7 +31,13 @@ function filterByCategory(category, destination) {
 				${filterDishes[index].name} <br/>
 				${filterDishes[index].description} <br/>
 				${filterDishes[index].price} <br/>
+				<button id="dish-${filterDishes[index].id}" class="add-to-basket" onclick="addItemToBasket(this.parentElement)">Add to Basket</button><br/>
 			</article>
 			`;
 	}
+}
+
+function addItemToBasket(item) {
+	console.log(item);
+	console.log(basket);
 }
