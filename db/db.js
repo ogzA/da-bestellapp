@@ -1,4 +1,4 @@
-const dishes = [
+const db = [
 	// --- Burger & Sandwiches ---
 	{
 		id: 1,

@@ -23,10 +23,10 @@ function render() {
 	renderBasket();
 }
 
-const db = dishes;
+const dishes = db;
 
 function filterByCategory(category, destination) {
-	const filterDishes = db.filter((item) => item.category === category);
+	const filterDishes = dishes.filter((item) => item.category === category);
 	let filterDishesHTML = "";
 
 	for (let index = 0; index < filterDishes.length; index++) {
@@ -98,7 +98,7 @@ function cartItemTemplate(cartItemTemplatePara) {
 }
 
 function deleteItem(deleteItemPara) {
-	const findItem = db.find((element) => element.id === deleteItemPara);
+	const findItem = dishes.find((element) => element.id === deleteItemPara);
 
 	findItem.amount = 0;
 
