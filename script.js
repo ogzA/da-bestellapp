@@ -67,20 +67,20 @@ function removeItemFromBasket(dishId) {
 }
 
 function renderBasket() {
-	basket.innerHTML = "";
+	let basketHTML = "";
 	let totalPrice = 0;
 	for (let i = 0; i < dishes.length; i++) {
 		if (dishes[i].amount > 0) {
 			totalPrice += dishes[i].price * dishes[i].amount;
-			basket.innerHTML += cartItemTemplate(dishes[i]);
+			basketHTML += cartItemTemplate(dishes[i]);
 		}
 	}
-
 	if (totalPrice > 0) {
-		basket.innerHTML += /*html*/ `
+		basketHTML += /*html*/ `
 			<div style="background: white; padding: 32px; ">${formatPrice(totalPrice)}</div>
-	`;
+			`;
 	}
+	basket.innerHTML = basketHTML;
 }
 
 function cartItemTemplate(dish) {
