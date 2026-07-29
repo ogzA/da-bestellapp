@@ -6,13 +6,11 @@ const basket = document.getElementById("basket");
 // [x] Dishes rendern
 // [x] Dishes nach Kategorien rendern und ausgeben lassen
 // [x]  Add to Basket Button erstellen und dessen Parent consoleloggen.
-// [] Dishes 1x in den Warenkorb hinzufügen (Add to basket)
+// [x] Dishes 1x in den Warenkorb hinzufügen (Add to basket)
 
-// Dishes amount erhöhen (Plus Icon)
-// eventuell amount * price?
-// Dishes amount verringen (Minus Icon)
-// Dishes löschen (Papierkorb Icon)
-// LocalStorage?
+// [x] Dishes amount erhöhen (Plus Icon)
+// [x] Dishes amount verringen (Minus Icon)
+// [x] Dishes löschen (Papierkorb Icon - icon wird noch hinzugefügt!)
 
 function init() {
 	filterByCategory("pizza", pizzaContentRef);
@@ -45,6 +43,26 @@ function formatPrice(price) {
 		currency: "EUR",
 	});
 }
+
+function addItemToBasket(dishId) {
+	const findItem = dishes.find((element) => element.id === dishId);
+	findItem.amount++;
+
+	renderBasket();
+	init();
+}
+
+function removeItemFromBasket(dishId) {
+	const findItem = dishes.find((element) => element.id === dishId);
+
+	if (findItem.amount > 0) {
+		findItem.amount--;
+	}
+
+	renderBasket();
+	init();
+}
+
 function renderBasket() {
 	basket.innerHTML = "";
 	let totalPrice = 0;
@@ -79,6 +97,13 @@ function cartItemTemplate(cartItemTemplatePara) {
 	`;
 }
 
+function deleteItem(deleteItemPara) {
+	const findItem = db.find((element) => element.id === deleteItemPara);
+
+	findItem.amount = 0;
+
+	renderBasket();
+	init();
 }
 
 function menuItemTemplate(dish, addedToBasket) {
