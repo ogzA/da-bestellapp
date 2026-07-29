@@ -45,6 +45,40 @@ function formatPrice(price) {
 		currency: "EUR",
 	});
 }
+function renderBasket() {
+	basket.innerHTML = "";
+	let totalPrice = 0;
+	for (let i = 0; i < dishes.length; i++) {
+		if (dishes[i].amount > 0) {
+			let totalDishPrice = 0;
+			totalDishPrice += dishes[i].price * dishes[i].amount;
+			totalPrice += totalDishPrice;
+			basket.innerHTML += cartItemTemplate(i);
+		}
+	}
+
+	// Hier ist ein Bug, wenn es im Warenkorb nichts ist, steht im Warenkorb 0,00€
+	if (totalPrice > 0) {
+		basket.innerHTML += /*html*/ `
+			<div style="background: white; padding: 32px; ">${formatPrice(totalPrice)}</div>
+	`;
+	}
+}
+
+function cartItemTemplate(cartItemTemplatePara) {
+	return /*html*/ `
+		<article id="basket-dish-${dishes[cartItemTemplatePara].id}">
+			<div>${dishes[cartItemTemplatePara].name}</div>
+			<div>${formatPrice(dishes[cartItemTemplatePara].price)}</div>
+			<button style="font-size: 55px;" onclick="removeItemFromBasket(${dishes[cartItemTemplatePara].id})">-</button>
+			<span>${dishes[cartItemTemplatePara].amount}</span>
+			<button style="font-size: 55px;" onclick="addItemToBasket(${dishes[cartItemTemplatePara].id})">+</button>
+			<button style="font-size: 55px;" onclick="deleteItem(${dishes[cartItemTemplatePara].id})">Löschen</button>
+			
+		</article>
+	`;
+}
+
 }
 
 function menuItemTemplate(dish, addedToBasket) {
