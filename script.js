@@ -72,7 +72,7 @@ function renderBasket() {
 	for (let i = 0; i < dishes.length; i++) {
 		if (dishes[i].amount > 0) {
 			totalPrice += dishes[i].price * dishes[i].amount;
-			basket.innerHTML += cartItemTemplate(i);
+			basket.innerHTML += cartItemTemplate(dishes[i]);
 		}
 	}
 
@@ -83,16 +83,15 @@ function renderBasket() {
 	}
 }
 
-function cartItemTemplate(cartItemTemplatePara) {
+function cartItemTemplate(dish) {
 	return /*html*/ `
-		<article id="basket-dish-${dishes[cartItemTemplatePara].id}">
-			<div>${dishes[cartItemTemplatePara].name}</div>
-			<div>${formatPrice(dishes[cartItemTemplatePara].price)}</div>
-			<button style="font-size: 55px;" onclick="removeItemFromBasket(${dishes[cartItemTemplatePara].id})">-</button>
-			<span>${dishes[cartItemTemplatePara].amount}</span>
-			<button style="font-size: 55px;" onclick="addItemToBasket(${dishes[cartItemTemplatePara].id})">+</button>
-			<button style="font-size: 55px;" onclick="deleteItem(${dishes[cartItemTemplatePara].id})">Löschen</button>
-			
+		<article id="basket-dish-${dish.id}">
+			<div>${dish.name}</div>
+			<div>${formatPrice(dish.price)}</div>
+			<button style="font-size: 55px;" onclick="removeItemFromBasket(${dish.id})">-</button>
+			<span>${dish.amount}</span>
+			<button style="font-size: 55px;" onclick="addItemToBasket(${dish.id})">+</button>
+			<button style="font-size: 55px;" onclick="deleteItem(${dish.id})">Löschen</button>
 		</article>
 	`;
 }
