@@ -24,20 +24,38 @@ const db = dishes;
 
 function filterByCategory(category, destination) {
 	const filterDishes = db.filter((item) => item.category === category);
+	let filterDishesHTML = "";
 
 	for (let index = 0; index < filterDishes.length; index++) {
-		destination.innerHTML += /*html*/ `
-			<article id="dish-${filterDishes[index].id}">
-				${filterDishes[index].name} <br/>
-				${filterDishes[index].description} <br/>
-				${filterDishes[index].price} <br/>
-				<button id="dish-${filterDishes[index].id}" class="add-to-basket" onclick="addItemToBasket(this.parentElement)">Add to Basket</button><br/>
-			</article>
-			`;
+		let addedToBasket =
+			filterDishes[index].amount > 0
+				? `Added ${filterDishes[index].amount}`
+				: "Add to basket";
+		filterDishesHTML += menuItemTemplate(
+			filterDishes[index],
+			addedToBasket,
+		);
 	}
+	destination.innerHTML = filterDishesHTML;
 }
 
-function addItemToBasket(item) {
-	console.log(item);
-	console.log(basket);
+function formatPrice(price) {
+	return price.toLocaleString("de-DE", {
+		style: "currency",
+		currency: "EUR",
+	});
+}
+}
+
+function menuItemTemplate(dish, addedToBasket) {
+	return /*html*/ `
+			<article id="dish-${dish.id}">
+				<h3>${dish.name}</h3>
+				${dish.description} <br/>
+				${formatPrice(dish.price)} <br/>
+				<button class="add-to-basket" onclick="addItemToBasket(${dish.id})">
+					${addedToBasket}
+				</button><br/>
+			</article>
+			`;
 }
