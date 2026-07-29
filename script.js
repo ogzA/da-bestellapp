@@ -18,6 +18,11 @@ function init() {
 	filterByCategory("salad", saladContentRef);
 }
 
+function render() {
+	init();
+	renderBasket();
+}
+
 const db = dishes;
 
 function filterByCategory(category, destination) {
@@ -48,8 +53,7 @@ function addItemToBasket(dishId) {
 	const findItem = dishes.find((element) => element.id === dishId);
 	findItem.amount++;
 
-	renderBasket();
-	init();
+	render();
 }
 
 function removeItemFromBasket(dishId) {
@@ -59,8 +63,7 @@ function removeItemFromBasket(dishId) {
 		findItem.amount--;
 	}
 
-	renderBasket();
-	init();
+	render();
 }
 
 function renderBasket() {
@@ -68,9 +71,7 @@ function renderBasket() {
 	let totalPrice = 0;
 	for (let i = 0; i < dishes.length; i++) {
 		if (dishes[i].amount > 0) {
-			let totalDishPrice = 0;
-			totalDishPrice += dishes[i].price * dishes[i].amount;
-			totalPrice += totalDishPrice;
+			totalPrice += dishes[i].price * dishes[i].amount;
 			basket.innerHTML += cartItemTemplate(i);
 		}
 	}
@@ -101,8 +102,7 @@ function deleteItem(deleteItemPara) {
 
 	findItem.amount = 0;
 
-	renderBasket();
-	init();
+	render();
 }
 
 function menuItemTemplate(dish, addedToBasket) {
