@@ -75,7 +75,6 @@ function renderBasket() {
 		}
 	}
 
-	// Hier ist ein Bug, wenn es im Warenkorb nichts ist, steht im Warenkorb 0,00€
 	if (totalPrice > 0) {
 		basket.innerHTML += /*html*/ `
 			<div style="background: white; padding: 32px; ">${formatPrice(totalPrice)}</div>
