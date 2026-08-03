@@ -13,99 +13,109 @@ const basket = document.getElementById("basket");
 // [x] Dishes löschen (Papierkorb Icon - icon wird noch hinzugefügt!)
 
 function init() {
-	filterByCategory("pizza", pizzaContentRef);
-	filterByCategory("burger", burgerContentRef);
-	filterByCategory("salad", saladContentRef);
+  filterByCategory("pizza", pizzaContentRef);
+  filterByCategory("burger", burgerContentRef);
+  filterByCategory("salad", saladContentRef);
 }
 
 function render() {
-	init();
-	renderBasket();
+  init();
+  renderBasket();
 }
 
 const dishes = db;
 
 function filterByCategory(category, destination) {
-	const filterDishes = dishes.filter((item) => item.category === category);
-	let filterDishesHTML = "";
+  const filterDishes = dishes.filter((item) => item.category === category);
+  let filterDishesHTML = "";
 
-	for (let index = 0; index < filterDishes.length; index++) {
-		let addedToBasket =
-			filterDishes[index].amount > 0
-				? `Added ${filterDishes[index].amount}`
-				: "Add to basket";
-		filterDishesHTML += menuItemTemplate(
-			filterDishes[index],
-			addedToBasket,
-		);
-	}
-	destination.innerHTML = filterDishesHTML;
+  for (let index = 0; index < filterDishes.length; index++) {
+    let addedToBasket =
+      filterDishes[index].amount > 0
+        ? `Added ${filterDishes[index].amount}`
+        : "Add to basket";
+    filterDishesHTML += menuItemTemplate(filterDishes[index], addedToBasket);
+  }
+  destination.innerHTML = filterDishesHTML;
 }
 
 function formatPrice(price) {
-	return price.toLocaleString("de-DE", {
-		style: "currency",
-		currency: "EUR",
-	});
+  return price.toLocaleString("de-DE", {
+    style: "currency",
+    currency: "EUR",
+  });
 }
 
 function addItemToBasket(dishId) {
-	const findItem = dishes.find((element) => element.id === dishId);
-	findItem.amount++;
+  const findItem = dishes.find((element) => element.id === dishId);
+  findItem.amount++;
 
-	render();
+  render();
 }
 
 function removeItemFromBasket(dishId) {
-	const findItem = dishes.find((element) => element.id === dishId);
+  const findItem = dishes.find((element) => element.id === dishId);
 
-	if (findItem.amount > 0) {
-		findItem.amount--;
-	}
+  if (findItem.amount > 0) {
+    findItem.amount--;
+  }
 
-	render();
+  render();
 }
 
 function renderBasket() {
-	let basketHTML = "";
-	let totalPrice = 0;
-	for (let i = 0; i < dishes.length; i++) {
-		if (dishes[i].amount > 0) {
-			totalPrice += dishes[i].price * dishes[i].amount;
-			basketHTML += cartItemTemplate(dishes[i]);
-		}
-	}
-	if (totalPrice > 0) {
-		basketHTML += /*html*/ `
+  let basketHTML = "";
+  let totalPrice = 0;
+  for (let i = 0; i < dishes.length; i++) {
+    if (dishes[i].amount > 0) {
+      totalPrice += dishes[i].price * dishes[i].amount;
+      basketHTML += cartItemTemplate(dishes[i]);
+    }
+  }
+  if (totalPrice > 0) {
+    basketHTML += /*html*/ `
 			<div style="background: white; padding: 32px; ">${formatPrice(totalPrice)}</div>
 			`;
-	}
-	basket.innerHTML = basketHTML;
+  }
+  basket.innerHTML = basketHTML;
 }
 
 function cartItemTemplate(dish) {
-	return /*html*/ `
+  return /*html*/ `
 		<article id="basket-dish-${dish.id}">
-			<div>${dish.name}</div>
+			<div id="basket-dish-name-${dish.id}">${dish.name}</div>
 			<div>${formatPrice(dish.price)}</div>
 			<button style="font-size: 55px;" onclick="removeItemFromBasket(${dish.id})">-</button>
-			<span>${dish.amount}</span>
-			<button style="font-size: 55px;" onclick="addItemToBasket(${dish.id})">+</button>
+			<span id="basket-dish-amount-${dish.id}">${dish.amount}</span>
+			<button style="font-size: 55px;" onclick="increaseItemAmount(${dish.id})">+</button>
 			<button style="font-size: 55px;" onclick="deleteItem(${dish.id})">Löschen</button>
 		</article>
 	`;
 }
 
+function increaseItemAmount(dishId) {
+  const findItem = dishes.find((element) => element.id === dishId);
+  findItem.amount++;
+  renderItemAmount(findItem);
+}
+
+function renderItemAmount(dish) {
+  const itemAmountRef = document.getElementById(
+    `basket-dish-amount-${dish.id}`,
+  );
+  itemAmountRef.innerText = dish.amount;
+}
+
 function deleteItem(deleteItemPara) {
-	const findItem = dishes.find((element) => element.id === deleteItemPara);
+  const findItem = dishes.find((element) => element.id === deleteItemPara);
 
-	findItem.amount = 0;
+  findItem.amount = 0;
 
-	render();
+  render();
 }
 
 function menuItemTemplate(dish, addedToBasket) {
-	return /*html*/ `
+  return /*html*/ `
 			<article id="dish-${dish.id}">
 				<h3>${dish.name}</h3>
 				${dish.description} <br/>
