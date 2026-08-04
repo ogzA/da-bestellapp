@@ -67,17 +67,10 @@ function removeItemFromBasket(dishId) {
 
 function renderBasket() {
   let basketHTML = "";
-  let totalPrice = 0;
   for (let i = 0; i < dishes.length; i++) {
     if (dishes[i].amount > 0) {
-      totalPrice += dishes[i].price * dishes[i].amount;
       basketHTML += cartItemTemplate(dishes[i]);
     }
-  }
-  if (totalPrice > 0) {
-    basketHTML += /*html*/ `
-			<div style="background: white; padding: 32px; ">${formatPrice(totalPrice)}</div>
-			`;
   }
   basket.innerHTML = basketHTML;
 }
@@ -87,7 +80,7 @@ function cartItemTemplate(dish) {
 		<article id="basket-dish-${dish.id}">
 			<div id="basket-dish-name-${dish.id}">${dish.name}</div>
 			<div>${formatPrice(dish.price)}</div>
-			<button style="font-size: 55px;" onclick="removeItemFromBasket(${dish.id})">-</button>
+			<button style="font-size: 55px;" onclick="decreaseItemAmount(${dish.id})">-</button>
 			<span id="basket-dish-amount-${dish.id}">${dish.amount}</span>
 			<button style="font-size: 55px;" onclick="increaseItemAmount(${dish.id})">+</button>
 			<button style="font-size: 55px;" onclick="deleteItem(${dish.id})">Löschen</button>
@@ -98,6 +91,19 @@ function cartItemTemplate(dish) {
 function increaseItemAmount(dishId) {
   const findItem = dishes.find((element) => element.id === dishId);
   findItem.amount++;
+  renderItemAmount(findItem);
+}
+
+function decreaseItemAmount(dishId) {
+  const findItem = dishes.find((element) => element.id === dishId);
+
+  if (findItem.amount > 0) {
+    findItem.amount--;
+  }
+
+  if (findItem.amount == 0) {
+  }
+
   renderItemAmount(findItem);
 }
 
