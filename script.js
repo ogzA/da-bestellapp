@@ -2,6 +2,7 @@ const pizzaContentRef = document.getElementById("pizza-content");
 const burgerContentRef = document.getElementById("burger-content");
 const saladContentRef = document.getElementById("salad-content");
 const basket = document.getElementById("basket");
+const basketTotalPrice = document.getElementById("basket-total-price");
 
 // [x] Dishes rendern
 // [x] Dishes nach Kategorien rendern und ausgeben lassen
@@ -21,6 +22,7 @@ function init() {
 function render() {
   init();
   renderBasket();
+  calculateItemTotalPrice();
 }
 
 const dishes = db;
@@ -104,6 +106,24 @@ function renderItemAmount(dish) {
     `basket-dish-amount-${dish.id}`,
   );
   itemAmountRef.innerText = dish.amount;
+
+  calculateItemTotalPrice();
+}
+
+function calculateItemTotalPrice() {
+  let totalPrice = 0;
+
+  for (let p = 0; p < dishes.length; p++) {
+    if (dishes[p].amount > 0) {
+      totalPrice += dishes[p].price * dishes[p].amount;
+    }
+  }
+
+  if (totalPrice > 0) {
+    basketTotalPrice.innerText = formatPrice(totalPrice);
+  } else {
+    basketTotalPrice.innerText = "Ihr Warenkorb ist leer.";
+  }
 }
 
 function deleteItem(deleteItemPara) {
