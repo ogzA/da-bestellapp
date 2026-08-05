@@ -75,6 +75,19 @@ function renderBasket() {
   basket.innerHTML = basketHTML;
 }
 
+function updateBasketItem(dish) {
+  const dishRef = document.getElementById(`basket-dish-${dish.id}`);
+
+  if (dish.amount == 0 && dishRef) {
+    dishRef.remove();
+  } else if (!dishRef) {
+    basket.insertAdjacentHTML("beforeend", cartItemTemplate(dish));
+  } else {
+    renderItemAmount(dish);
+  }
+  calculateItemTotalPrice();
+}
+
 function cartItemTemplate(dish) {
   return /*html*/ `
 		<article id="basket-dish-${dish.id}">
@@ -91,7 +104,7 @@ function cartItemTemplate(dish) {
 function increaseItemAmount(dishId) {
   const findItem = dishes.find((element) => element.id === dishId);
   findItem.amount++;
-  renderItemAmount(findItem);
+  updateBasketItem(findItem);
 }
 
 function decreaseItemAmount(dishId) {
@@ -101,10 +114,7 @@ function decreaseItemAmount(dishId) {
     findItem.amount--;
   }
 
-  if (findItem.amount == 0) {
-  }
-
-  renderItemAmount(findItem);
+  updateBasketItem(findItem);
 }
 
 function renderItemAmount(dish) {
@@ -137,7 +147,7 @@ function deleteItem(deleteItemPara) {
 
   findItem.amount = 0;
 
-  render();
+  updateBasketItem(findItem);
 }
 
 function menuItemTemplate(dish, addedToBasket) {
