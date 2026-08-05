@@ -52,17 +52,7 @@ function addItemToBasket(dishId) {
   const findItem = dishes.find((element) => element.id === dishId);
   findItem.amount++;
 
-  render();
-}
-
-function removeItemFromBasket(dishId) {
-  const findItem = dishes.find((element) => element.id === dishId);
-
-  if (findItem.amount > 0) {
-    findItem.amount--;
-  }
-
-  render();
+  updateBasketItem(findItem);
 }
 
 function renderBasket() {
