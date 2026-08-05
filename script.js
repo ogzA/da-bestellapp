@@ -146,7 +146,7 @@ function menuItemTemplate(dish, addedToBasket) {
 				<h3>${dish.name}</h3>
 				${dish.description} <br/>
 				${formatPrice(dish.price)} <br/>
-				<button class="add-to-basket" onclick="addItemToBasket(${dish.id})">
+				<button id="menu-button-${dish.id}" class="add-to-basket" onclick="addItemToBasket(${dish.id})">
 					${addedToBasket}
 				</button><br/>
 			</article>
