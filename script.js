@@ -127,8 +127,8 @@ function calculateItemTotalPrice() {
   }
 }
 
-function deleteItem(deleteItemPara) {
-  const findItem = dishes.find((element) => element.id === deleteItemPara);
+function deleteItem(dishId) {
+  const findItem = dishes.find((element) => element.id === dishId);
 
   findItem.amount = 0;
 
@@ -145,6 +145,7 @@ function renderMenuButton(dish) {
   menuButtonRef.innerText = basketButtonLabel(dish);
 }
 
+function menuItemTemplate(dish) {
   return /*html*/ `
 			<article id="dish-${dish.id}">
 				<h3>${dish.name}</h3>
