@@ -109,8 +109,6 @@ function renderItemAmount(dish) {
     `basket-dish-amount-${dish.id}`,
   );
   itemAmountRef.innerText = dish.amount;
-
-  calculateItemTotalPrice();
 }
 
 function calculateItemTotalPrice() {
