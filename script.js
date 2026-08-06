@@ -76,6 +76,7 @@ function updateBasketItem(dish) {
     renderItemAmount(dish);
   }
   calculateItemTotalPrice();
+  renderMenuButton(dish);
 }
 
 function cartItemTemplate(dish) {
@@ -140,7 +141,16 @@ function deleteItem(deleteItemPara) {
   updateBasketItem(findItem);
 }
 
-function menuItemTemplate(dish, addedToBasket) {
+function basketButtonLabel(dish) {
+  return dish.amount > 0 ? `Added ${dish.amount}` : "Add to basket";
+}
+
+function renderMenuButton(dish) {
+  const menuButtonRef = document.getElementById(`menu-button-${dish.id}`);
+
+  menuButtonRef.innerText = basketButtonLabel(dish);
+}
+
   return /*html*/ `
 			<article id="dish-${dish.id}">
 				<h3>${dish.name}</h3>
