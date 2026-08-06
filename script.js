@@ -32,11 +32,7 @@ function filterByCategory(category, destination) {
   let filterDishesHTML = "";
 
   for (let index = 0; index < filterDishes.length; index++) {
-    let addedToBasket =
-      filterDishes[index].amount > 0
-        ? `Added ${filterDishes[index].amount}`
-        : "Add to basket";
-    filterDishesHTML += menuItemTemplate(filterDishes[index], addedToBasket);
+    filterDishesHTML += menuItemTemplate(filterDishes[index]);
   }
   destination.innerHTML = filterDishesHTML;
 }
@@ -157,7 +153,7 @@ function renderMenuButton(dish) {
 				${dish.description} <br/>
 				${formatPrice(dish.price)} <br/>
 				<button id="menu-button-${dish.id}" class="add-to-basket" onclick="addItemToBasket(${dish.id})">
-					${addedToBasket}
+					${basketButtonLabel(dish)}
 				</button><br/>
 			</article>
 			`;
