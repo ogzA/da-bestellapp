@@ -83,7 +83,7 @@ function cartItemTemplate(dish) {
 			<button style="font-size: 55px;" onclick="decreaseItemAmount(${dish.id})">-</button>
 			<span id="basket-dish-amount-${dish.id}">${dish.amount}</span>
 			<button style="font-size: 55px;" onclick="increaseItemAmount(${dish.id})">+</button>
-			<button style="font-size: 55px;" onclick="deleteItem(${dish.id})">Löschen</button>
+			<button style="font-size: 55px;" onclick="deleteItem(${dish.id})"><img src="./assets/icons/delete.svg"></button>
 		</article>
 	`;
 }
@@ -147,13 +147,17 @@ function renderMenuButton(dish) {
 
 function menuItemTemplate(dish) {
   return /*html*/ `
-			<article id="dish-${dish.id}">
-				<h3>${dish.name}</h3>
+			<article id="dish-${dish.id}" class="dish">
+        <img class="dish-img" src="${dish.imageUrl}">
+        <div class="dish-content">
+          <h3>${dish.name}</h3>
 				${dish.description} <br/>
 				${formatPrice(dish.price)} <br/>
 				<button id="menu-button-${dish.id}" class="add-to-basket" onclick="addItemToBasket(${dish.id})">
 					${basketButtonLabel(dish)}
 				</button><br/>
+        </div>
+				
 			</article>
 			`;
 }
