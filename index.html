@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bestellapp</title>
     <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="variables.css" />
     <link rel="stylesheet" href="style.css" />
     <script src="./db/db.js"></script>
     <script src="./scripts/template.js"></script>
@@ -12,33 +13,77 @@
   </head>
   <body onload="render()">
     <header>
-      <a href="#">
-        <img class="logo" src="./assets/img/logo.png" alt="Lieferando" />
-      </a>
-      <nav>Burger Menu Icon</nav>
+      <div class="container">
+        <div class="header-content">
+          <a href="#">
+            <img class="logo" src="./assets/img/logo.png" alt="Lieferando" />
+          </a>
+          <nav>
+            <img
+              class="menu-icon"
+              src="./assets/icons/burger-menu.svg"
+              alt="Menu"
+            />
+          </nav>
+        </div>
+      </div>
     </header>
     <main>
-      <section class="dishes">
-        <section class="dish">
-          <section id="burger-content"></section>
-        </section>
-        <section class="dish">
-          <h2>Burger & Sandwiches</h2>
-          <div class="container"></div>
-
-          <section id="pizza-content"></section>
-        </section>
-
-        <section id="salad-content"></section>
+      <section>Hero</section>
+      <section id="basket-container" class="basket-container">
+        <div class="container">
+          <div id="cart">
+            <div id="basket"></div>
+            <div id="basket-total-price"></div>
+          </div>
+        </div>
       </section>
-      <aside id="basket-container">
-        <div id="basket"></div>
-        <div
-          id="basket-total-price"
-          style="background: white; padding: 32px"
-        ></div>
-      </aside>
+      <section id="burgers">
+        <div class="bar">
+          <div class="container">
+            <div class="bar-content">
+              <img src="./assets/img/burger-img.png" alt="Burgers" />
+              <h2>Burger & Sandwiches</h2>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div id="burger-content"></div>
+        </div>
+      </section>
+
+      <section id="pizzas">
+        <div class="bar">
+          <div class="container">
+            <div class="bar-content">
+              <img src="./assets/img/pizza-img.png" alt="Burgers" />
+              <h2>Pizzas</h2>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div id="pizza-content"></div>
+        </div>
+      </section>
+
+      <section id="salads">
+        <div class="bar">
+          <div class="container">
+            <div class="bar-content">
+              <img src="./assets/img/salad-img.png" alt="Burgers" />
+              <h2>Salads</h2>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div id="salad-content"></div>
+        </div>
+      </section>
     </main>
-    <footer></footer>
+    <footer>
+      <a href="#">2026 BurgerHouse</a>
+      <a href="#">Imprint</a>
+      <a href="#">Cookie Preferences</a>
+    </footer>
   </body>
 </html>

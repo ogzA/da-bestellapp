@@ -1,17 +1,20 @@
 * {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  position: relative;
 }
 
 html,
 body {
-	height: 100%;
-	width: 100%;
+  font-size: 16px;
+  height: 100%;
+  width: 100%;
 }
 
 button {
-	border: 0;
-	outline: 0;
-	background: transparent;
+  border: 0;
+  outline: 0;
+  background: transparent;
 }
