@@ -1,17 +1,8 @@
 const pizzaContentRef = document.getElementById("pizza-content");
 const burgerContentRef = document.getElementById("burger-content");
 const saladContentRef = document.getElementById("salad-content");
-const basket = document.getElementById("basket");
-const basketTotalPrice = document.getElementById("basket-total-price");
-
-// [x] Dishes rendern
-// [x] Dishes nach Kategorien rendern und ausgeben lassen
-// [x]  Add to Basket Button erstellen und dessen Parent consoleloggen.
-// [x] Dishes 1x in den Warenkorb hinzufügen (Add to basket)
-
-// [x] Dishes amount erhöhen (Plus Icon)
-// [x] Dishes amount verringen (Minus Icon)
-// [x] Dishes löschen (Papierkorb Icon - icon wird noch hinzugefügt!)
+const cart = document.getElementById("cart");
+const deliveryFee = 4.99;
 
 function init() {
   filterByCategory("pizza", pizzaContentRef);
@@ -21,11 +12,43 @@ function init() {
 
 function render() {
   init();
+  renderCart();
+  document
+    .getElementById("confirmation")
+    .addEventListener("close", hideConfirmation);
+}
+
+const dishes = db;
+
+function renderCart() {
+  cart.innerHTML = cartTemplate();
   renderBasket();
   calculateItemTotalPrice();
 }
 
+function cartTemplate() {
+  return /*html*/ `
 const dishes = db;
+		<h2 class="basket-title">Your Basket</h2>
+		<div id="basket"></div>
+		<div id="basket-empty" class="basket-empty">Ihr Warenkorb ist leer.</div>
+		<div id="basket-total-price">
+			<div class="summary-row">
+				<span>Subtotal</span>
+				<span id="summary-subtotal"></span>
+			</div>
+			<div class="summary-row">
+				<span>Delivery fee</span>
+				<span>${formatPrice(deliveryFee)}</span>
+			</div>
+			<div class="summary-row summary-total">
+				<span>Total</span>
+				<span id="summary-total"></span>
+			</div>
+			<button id="buy-now" class="buy-now" onclick="buyNow()"></button>
+		</div>
+	`;
+}
 
 function filterByCategory(category, destination) {
   const filterDishes = dishes.filter((item) => item.category === category);
@@ -64,10 +87,12 @@ function renderBasket() {
 function updateBasketItem(dish) {
   const dishRef = document.getElementById(`basket-dish-${dish.id}`);
 
-  if (dish.amount == 0 && dishRef) {
-    dishRef.remove();
+  if (dish.amount === 0) {
+    if (dishRef) dishRef.remove();
   } else if (!dishRef) {
-    basket.insertAdjacentHTML("beforeend", cartItemTemplate(dish));
+    document
+      .getElementById("basket")
+      .insertAdjacentHTML("beforeend", cartItemTemplate(dish));
   } else {
     renderItemAmount(dish);
   }
@@ -77,13 +102,19 @@ function updateBasketItem(dish) {
 
 function cartItemTemplate(dish) {
   return /*html*/ `
-		<article id="basket-dish-${dish.id}">
-			<div id="basket-dish-name-${dish.id}">${dish.name}</div>
-			<div>${formatPrice(dish.price)}</div>
-			<button style="font-size: 55px;" onclick="decreaseItemAmount(${dish.id})">-</button>
-			<span id="basket-dish-amount-${dish.id}">${dish.amount}</span>
-			<button style="font-size: 55px;" onclick="increaseItemAmount(${dish.id})">+</button>
-			<button style="font-size: 55px;" onclick="deleteItem(${dish.id})"><img src="./assets/icons/delete.svg"></button>
+		<article id="basket-dish-${dish.id}" class="basket-item">
+			<button class="basket-delete" onclick="deleteItem(${dish.id})">
+				<img class="delete-icon" src="./assets/icons/delete.svg" alt="Delete">
+			</button>
+			<div id="basket-dish-name-${dish.id}" class="basket-item-name">${dish.amount} x ${dish.name}</div>
+			<div class="basket-item-row">
+				<div class="amount-control">
+					<button class="amount-btn" onclick="decreaseItemAmount(${dish.id})">&minus;</button>
+					<span id="basket-dish-amount-${dish.id}" class="amount-value">${dish.amount}</span>
+					<button class="amount-btn" onclick="increaseItemAmount(${dish.id})">+</button>
+				</div>
+				<div id="basket-dish-price-${dish.id}" class="basket-item-price">${formatPrice(dish.price * dish.amount)}</div>
+			</div>
 		</article>
 	`;
 }
@@ -105,10 +136,12 @@ function decreaseItemAmount(dishId) {
 }
 
 function renderItemAmount(dish) {
-  const itemAmountRef = document.getElementById(
-    `basket-dish-amount-${dish.id}`,
-  );
-  itemAmountRef.innerText = dish.amount;
+  document.getElementById(`basket-dish-name-${dish.id}`).innerText =
+    `${dish.amount} x ${dish.name}`;
+  document.getElementById(`basket-dish-amount-${dish.id}`).innerText =
+    dish.amount;
+  document.getElementById(`basket-dish-price-${dish.id}`).innerText =
+    formatPrice(dish.price * dish.amount);
 }
 
 function calculateItemTotalPrice() {
@@ -120,11 +153,20 @@ function calculateItemTotalPrice() {
     }
   }
 
-  if (totalPrice > 0) {
-    basketTotalPrice.innerText = formatPrice(totalPrice);
-  } else {
-    basketTotalPrice.innerText = "Ihr Warenkorb ist leer.";
-  }
+  renderSummary(totalPrice);
+function renderSummary(subtotal) {
+  const isEmpty = subtotal === 0;
+  document
+    .getElementById("basket-total-price")
+    .classList.toggle("d-none", isEmpty);
+  document.getElementById("basket-empty").classList.toggle("d-none", !isEmpty);
+
+  const total = subtotal + deliveryFee;
+  document.getElementById("summary-subtotal").innerText = formatPrice(subtotal);
+  document.getElementById("summary-total").innerText = formatPrice(total);
+  document.getElementById("buy-now").innerText =
+    `Buy now (${formatPrice(total)})`;
+}
 }
 
 function deleteItem(dishId) {
