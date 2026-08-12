@@ -61,21 +61,61 @@ section {
     width: 60%;
     z-index: 1000;
     background: var(--dish-card-bg-color);
-    border-radius: 10px;
+    border-radius: 16px;
     padding: 1rem;
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
+    font-size: 1rem;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      flex-direction: column;
+      gap: 1rem;
+    }
 
     .dish-img {
       width: 250px;
-      border-radius: 0.75rem;
+      height: 150px;
+      flex-shrink: 0;
+      border-radius: 12px;
       object-fit: cover;
+
+      @media (max-width: 768px) {
+        width: 100%;
+        height: 10rem;
+      }
     }
 
     .dish-content {
       width: 100%;
       display: flex;
       flex-direction: column;
+    }
+
+    .dish-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+
+    .dish-name {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #1f1c1b;
+    }
+
+    .dish-price {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1f1c1b;
+      white-space: nowrap;
+    }
+
+    .dish-description {
+      margin-top: 0.5rem;
+      line-height: 1.4;
+      color: #4a4441;
     }
   }
 }
@@ -86,14 +126,19 @@ footer {
 
 .add-to-basket {
   cursor: pointer;
-  padding: 1rem;
-  background-color: black;
-  color: #fff;
-  font-size: 1rem;
-  margin-top: 1rem;
-  border-radius: 50px;
-  width: fit-content;
   align-self: flex-end;
+  margin-top: auto;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 50px;
+  background: #fff;
+  color: #1f1c1b;
+  font-size: 1rem;
+  font-weight: 500;
+  width: fit-content;
+}
+}
+}
 }
 
 #basket-container {

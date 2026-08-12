@@ -190,16 +190,17 @@ function renderMenuButton(dish) {
 function menuItemTemplate(dish) {
   return /*html*/ `
 			<article id="dish-${dish.id}" class="dish">
-        <img class="dish-img" src="${dish.imageUrl}">
+			<img class="dish-img" src="${dish.imageUrl}" alt="">
         <div class="dish-content">
-          <h3>${dish.name}</h3>
-				${dish.description} <br/>
-				${formatPrice(dish.price)} <br/>
+				<div class="dish-header">
+					<h3 class="dish-name">${dish.name}</h3>
+					<div class="dish-price">${formatPrice(dish.price)}</div>
+				</div>
+				<p class="dish-description">${dish.description}</p>
 				<button id="menu-button-${dish.id}" class="add-to-basket" onclick="addItemToBasket(${dish.id})">
 					${basketButtonLabel(dish)}
-				</button><br/>
+				</button>
         </div>
-				
 			</article>
 			`;
 }
