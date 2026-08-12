@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="variables.css" />
     <link rel="stylesheet" href="style.css" />
     <script src="./db/db.js"></script>
-    <script src="./scripts/template.js"></script>
+    <script src="./scripts/template.js" defer></script>
     <script src="./script.js" defer></script>
     <script src="./scripts/confirmation.js" defer></script>
   </head>
@@ -105,5 +105,35 @@
       <a href="#">Imprint</a>
       <a href="#">Cookie Preferences</a>
     </footer>
+
+    <nav class="mobile-nav">
+      <button class="mobile-nav-btn">
+        <img class="mobile-nav-icon" src="./assets/icons/home.svg" alt="Home" />
+      </button>
+      <button class="mobile-nav-btn">
+        <img
+          class="mobile-nav-icon"
+          src="./assets/icons/person.svg"
+          alt="Profile"
+        />
+      </button>
+      <button class="mobile-nav-btn">
+        <img
+          class="mobile-nav-icon"
+          src="./assets/icons/dining.svg"
+          alt="Orders"
+        />
+      </button>
+      <button class="mobile-nav-btn" onclick="openCart()">
+        <img
+          class="mobile-nav-icon"
+          src="./assets/icons/shopping_cart.svg"
+          alt="Basket"
+        />
+        <span id="basket-badge" class="basket-badge d-none">0</span>
+      </button>
+    </nav>
+
+    <dialog id="confirmation" class="confirmation"></dialog>
   </body>
 </html>

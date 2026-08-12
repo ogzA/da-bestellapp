@@ -28,7 +28,7 @@ function renderCart() {
 
 function cartTemplate() {
   return /*html*/ `
-const dishes = db;
+		<button class="cart-close" onclick="closeCart()">&times;</button>
 		<h2 class="basket-title">Your Basket</h2>
 		<div id="basket"></div>
 		<div id="basket-empty" class="basket-empty">Ihr Warenkorb ist leer.</div>
@@ -75,6 +75,7 @@ function addItemToBasket(dishId) {
 }
 
 function renderBasket() {
+  const basket = document.getElementById("basket");
   let basketHTML = "";
   for (let i = 0; i < dishes.length; i++) {
     if (dishes[i].amount > 0) {
@@ -146,14 +147,19 @@ function renderItemAmount(dish) {
 
 function calculateItemTotalPrice() {
   let totalPrice = 0;
+  let totalAmount = 0;
 
   for (let p = 0; p < dishes.length; p++) {
     if (dishes[p].amount > 0) {
       totalPrice += dishes[p].price * dishes[p].amount;
+      totalAmount += dishes[p].amount;
     }
   }
 
   renderSummary(totalPrice);
+  renderBasketBadge(totalAmount);
+}
+
 function renderSummary(subtotal) {
   const isEmpty = subtotal === 0;
   document
@@ -167,6 +173,22 @@ function renderSummary(subtotal) {
   document.getElementById("buy-now").innerText =
     `Buy now (${formatPrice(total)})`;
 }
+
+function renderBasketBadge(totalAmount) {
+  const badgeRef = document.getElementById("basket-badge");
+
+  badgeRef.innerText = totalAmount;
+  badgeRef.classList.toggle("d-none", totalAmount === 0);
+}
+
+function openCart() {
+  document.getElementById("basket-container").classList.add("cart-open");
+  document.body.classList.add("no-scroll");
+}
+
+function closeCart() {
+  document.getElementById("basket-container").classList.remove("cart-open");
+  document.body.classList.remove("no-scroll");
 }
 
 function deleteItem(dishId) {
@@ -189,9 +211,9 @@ function renderMenuButton(dish) {
 
 function menuItemTemplate(dish) {
   return /*html*/ `
-			<article id="dish-${dish.id}" class="dish">
+		<article id="dish-${dish.id}" class="dish">
 			<img class="dish-img" src="${dish.imageUrl}" alt="">
-        <div class="dish-content">
+			<div class="dish-content">
 				<div class="dish-header">
 					<h3 class="dish-name">${dish.name}</h3>
 					<div class="dish-price">${formatPrice(dish.price)}</div>
@@ -200,7 +222,7 @@ function menuItemTemplate(dish) {
 				<button id="menu-button-${dish.id}" class="add-to-basket" onclick="addItemToBasket(${dish.id})">
 					${basketButtonLabel(dish)}
 				</button>
-        </div>
-			</article>
-			`;
+			</div>
+		</article>
+	`;
 }
