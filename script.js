@@ -31,7 +31,7 @@ function cartTemplate() {
 		<button class="cart-close" onclick="closeCart()">&times;</button>
 		<h2 class="basket-title">Your Basket</h2>
 		<div id="basket"></div>
-		<div id="basket-empty" class="basket-empty">Ihr Warenkorb ist leer.</div>
+		<div id="basket-empty" class="basket-empty">Your shopping cart is empty.</div>
 		<div id="basket-total-price">
 			<div class="summary-row">
 				<span>Subtotal</span>
