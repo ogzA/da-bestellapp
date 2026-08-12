@@ -59,7 +59,6 @@ section {
 
   .dish {
     width: 60%;
-    z-index: 1000;
     background: var(--dish-card-bg-color);
     border-radius: 16px;
     padding: 1rem;
