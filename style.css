@@ -342,3 +342,63 @@ footer {
   gap: 1rem;
   margin-top: 1rem;
 }
+.confirmation {
+  padding: 0;
+  border: none;
+  border-radius: 12px;
+  background: #33302e;
+  color: #fdeee0;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+  margin: auto;
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.35);
+  }
+
+  &.fade-out {
+    opacity: 0;
+  }
+
+  .confirmation-box {
+    min-width: 300px;
+    padding: 2rem 3rem;
+    text-align: center;
+    animation: confirmation-in 0.25s ease-out;
+  }
+
+  .confirmation-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 1;
+    padding: 0;
+    border: none;
+    background: none;
+    color: inherit;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .confirmation-icon {
+    width: 3rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .confirmation-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .confirmation-text {
+    font-weight: 600;
+  }
+}
+
+@keyframes confirmation-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
