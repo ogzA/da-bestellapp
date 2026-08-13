@@ -177,6 +177,11 @@ footer {
   font-family: "Palanquin";
   font-weight: 500;
   width: fit-content;
+
+  &:hover,
+  &.added {
+    color: var(--main-bg-color);
+  }
 }
 
 .hero {

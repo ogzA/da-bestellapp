@@ -8,7 +8,7 @@ function menuItemTemplate(dish) {
 					<div class="dish-price">${formatPrice(dish.price)}</div>
 				</div>
 				<p class="dish-description">${dish.description}</p>
-				<button id="menu-button-${dish.id}" class="add-to-basket" onclick="addItemToBasket(${dish.id})">
+				<button id="menu-button-${dish.id}" class="add-to-basket ${dish.amount > 0 ? "added" : ""}" onclick="addItemToBasket(${dish.id})">
 					${basketButtonLabel(dish)}
 				</button>
 			</div>

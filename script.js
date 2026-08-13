@@ -164,4 +164,5 @@ function renderMenuButton(dish) {
   const menuButtonRef = document.getElementById(`menu-button-${dish.id}`);
 
   menuButtonRef.innerText = basketButtonLabel(dish);
+  menuButtonRef.classList.toggle("added", dish.amount > 0);
 }
