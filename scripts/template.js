@@ -21,7 +21,8 @@ function cartTemplate() {
 		<button class="cart-close" onclick="closeCart()">&times;</button>
 		<h2 class="basket-title">Your Basket</h2>
 		<div id="basket" class="basket"></div>
-		<div id="basket-empty" class="basket-empty">Your shopping cart is empty.</div>
+		<div id="basket-empty" class="basket-empty">Nothing here yet.
+Go ahead and choose something delicious!</div>
 		<div id="basket-total-price" class="basket-total-price">
 			<div class="summary-row">
 				<span>Subtotal</span>
