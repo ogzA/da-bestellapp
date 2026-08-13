@@ -38,14 +38,3 @@ function hideConfirmation() {
   confirmationRef.classList.remove("fade-out");
   confirmationRef.innerHTML = "";
 }
-
-function confirmationTemplate() {
-  return /*html*/ `
-		<div class="confirmation-box">
-			<button class="confirmation-close" onclick="hideConfirmation()">&times;</button>
-			<img class="confirmation-icon" src="./assets/icons/delivery-confirmation.svg" alt="">
-			<h3 class="confirmation-title">Order confirmed!</h3>
-			<p class="confirmation-text">Your food is on the way!</p>
-		</div>
-	`;
-}
