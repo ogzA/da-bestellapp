@@ -6,13 +6,6 @@
   position: relative;
 }
 
-html,
-body {
-  font-size: 16px;
-  height: 100%;
-  width: 100%;
-}
-
 a {
   text-decoration: none;
 }

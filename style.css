@@ -2,6 +2,14 @@
   display: none !important;
 }
 
+html,
+body {
+  font-size: 16px;
+  font-family: "Palanquin";
+  height: 100%;
+  width: 100%;
+}
+
 body {
   @media (max-width: 768px) {
     &.no-scroll {
@@ -164,12 +172,14 @@ footer {
   background: #fff;
   color: #1f1c1b;
   font-size: 1rem;
+  font-family: "Palanquin";
   font-weight: 500;
   width: fit-content;
 }
 
 .hero {
   padding-bottom: 2rem;
+  font-family: "Palanquin Dark";
 
   .hero-banner {
     width: 100%;
