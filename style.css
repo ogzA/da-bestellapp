@@ -363,7 +363,7 @@ footer {
 
   .basket {
     min-height: 0;
-    max-height: 300px;
+    max-height: 350px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
